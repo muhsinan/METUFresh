@@ -1,0 +1,58 @@
+{% extends "metuFresh/main.html" %}
+    
+{% block content %}
+
+<h1 class="text-center pt-3"> Welcome to MetuFresh</h1>
+
+<p class="text-center"> Welcome to the home page of MetuFresh. We are a company that provides fresh fruits and vegetables to our customers. We are committed to providing the best quality products to our customers. </p>
+
+<p class="text-center"> We have a wide range of products that you can choose from. You can order online and we will deliver the products to your doorstep. </p>
+
+<p class="text-center"> We are committed to providing the best customer service to our customers. We have a team of dedicated professionals who are always ready to help you with any queries or concerns you may have. </p>
+
+<p class="text-center"> We are always looking for ways to improve our services and products. We welcome any feedback or suggestions you may have. </p>
+
+<p class="text-center"> Thank you for choosing MetuFresh. We look forward to serving you. </p>
+
+<div>
+    <div class="text-center pb-3">
+        {% if request.session.user_type == 'restaurant' %}
+        <a href="{% url 'create-product' %}" class="btn btn-primary display-4">Add a new product</a>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <a href="{% url 'product' product.id %}"><h2 class="card-title">{{ product.name }}</h2></a>
+                            <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text">${{ product.price }}</p>
+                        </div>
+                        <div class="card-footer">
+                            {% if request.session.user_type != 'restaurant' %}
+                                <form method="post" action={% url 'add_to_cart' %}>
+                                {{ form.as_p }}
+                                {% csrf_token %}
+                                    <input type="hidden" name="product_id" value={{ product.id }}>
+                                    <button type="submit" name="button" class="btn btn-secondary">Add to cart</button>
+                                </form>
+                            {% endif %}
+                            {% if request.session.user_type == 'restaurant' %}
+                                <a href="{% url 'update-product' product.id %}" class="btn btn-primary">Edit</a>
+                                <span> | </span>
+                                <a href="{% url 'delete-product' product.id %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                    </div><div class="row">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}

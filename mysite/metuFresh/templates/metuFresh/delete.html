@@ -1,0 +1,12 @@
+{% extends "metuFresh/main.html" %}
+
+{% block content %}
+
+<form method="post" action="">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p> Are you sure you want to delete "{{ product.name }}"? </p>
+    <a href="{{ request.META.HTTP_REFERER }}"> Go Back </a>
+    <input type="submit" value="Yes, I'm sure.">
+</form>
+{% endblock content %}

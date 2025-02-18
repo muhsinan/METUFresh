@@ -1,0 +1,18 @@
+{% extends "metuFresh/main.html" %}
+
+{% block content %}
+
+<div class="container text-center pt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Add a Product</h1>
+            <form method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "metuFresh/main.html" %}
+    
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Your shopping cart description goes here.">
+    <meta name="keywords" content="shopping cart, products, checkout">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Your Shopping Cart</h1>
+        {% if products %}
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <a href="{% url 'product' product.id %}"><h2 class="card-title">{{ product.name }}</h2></a>
+                                <p class="card-text">{{ product.description }}</p>
+                                <p class="card-text">${{ product.price }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <form method="post" action="{% url 'remove_from_cart' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                        </div><div class="row">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="mt-4">
+                <form method="post" action="{% url 'checkout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Proceed to Checkout</button>
+                </form>
+            </div>
+        {% else %}
+            <p>Your cart is empty.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Continue Shopping</a>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+{% endblock content %}

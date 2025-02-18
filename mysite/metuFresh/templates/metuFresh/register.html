@@ -1,0 +1,48 @@
+{% extends "metuFresh/main.html" %}
+
+{% block content %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Register</h1>
+            <form method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name" class="form-control" id="first_name" aria-describedby="emailHelp" placeholder="Enter first name">
+                    </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" id="last_name" aria-describedby="emailHelp" placeholder="Enter last name">
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" name="phone_number" class="form-control" id="phone_number" aria-describedby="emailHelp" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" class="form-control" id="address" aria-describedby="emailHelp" placeholder="Enter address">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">E-mail</label>
+                    <input type="username" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter e-mail">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" name="is_restaurant" id="restaurant">
+                    <label class="form-check-label" for="exampleCheck1">Restaurant?</label>
+                </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
