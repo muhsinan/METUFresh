@@ -1,0 +1,1 @@
+A simple food application website created with Python Django where you can register either as a seller or customer. Seller can add products which will be stored in a local database. Similarly, customers can buy products, which will be deducted from the database.
